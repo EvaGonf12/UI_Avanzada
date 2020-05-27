@@ -96,7 +96,7 @@ class TopicsViewController: UIViewController {
             notification.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
             notification.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -11),
             notification.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 11),
-            notification.heightAnchor.constraint(equalToConstant: 155)
+            notification.heightAnchor.constraint(lessThanOrEqualToConstant: 155)
         ])
         
         self.navigationController?.hideBg()

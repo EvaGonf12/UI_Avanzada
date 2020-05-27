@@ -109,6 +109,7 @@ class NotificationView: UIView {
         self.addSubview(button)
         NSLayoutConstraint.activate([
             button.topAnchor.constraint(equalTo: textNotification.bottomAnchor, constant: 20),
+            button.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -15),
             button.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             button.heightAnchor.constraint(equalToConstant: 28),
             button.widthAnchor.constraint(equalToConstant: 115)
