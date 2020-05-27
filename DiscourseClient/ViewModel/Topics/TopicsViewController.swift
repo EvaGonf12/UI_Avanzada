@@ -42,15 +42,16 @@ class TopicsViewController: UIViewController {
     
     lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: 230, height: 35))
+        //searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchBar.placeholder = "Buscar"
+        searchBar.backgroundColor = .clear
         searchBar.setSearchFieldBackgroundImage(UIImage(named: "searchBg"), for: .normal)
         searchBar.tintColor = UIColor.dark
         searchBar.setImage(UIImage(named: "search"), for: .search, state: .normal)
-        searchBar.barTintColor = UIColor.dark
+        //searchBar.barTintColor = UIColor.dark
         
         return searchBar
     }()
-
     
     lazy var tableView: UITableView = {
         let table = UITableView(frame: .zero, style: .plain)
@@ -58,17 +59,18 @@ class TopicsViewController: UIViewController {
         table.dataSource = self
         table.delegate = self
         table.register(UINib(nibName: "TopicCell", bundle: nil), forCellReuseIdentifier: "TopicCell")
-        table.backgroundView?.backgroundColor = .clear
-        table.separatorStyle = UITableViewCell.SeparatorStyle.none
+        table.backgroundColor = .clear
         table.estimatedRowHeight = 94
         table.rowHeight = 94
+        table.layer.borderWidth = 0
+        table.layer.cornerRadius = 24
+        table.separatorStyle = .singleLine
         return table
     }()
     
     lazy var notification: NotificationView = {
         let notification = NotificationView()
         notification.translatesAutoresizingMaskIntoConstraints = false
-        //notification.layer.cornerRadius = 24
         notification.buttonAction = { [weak self] in
             print("TOMAAAAAA")
         }
@@ -79,7 +81,8 @@ class TopicsViewController: UIViewController {
     override func loadView() {
         title = "Temas"
         self.navigationItem.title = ""
-        
+        self.navigationController?.hideBg()
+
         view = UIView()
         view.backgroundColor = UIColor.breakWhite
         
@@ -99,13 +102,17 @@ class TopicsViewController: UIViewController {
             notification.heightAnchor.constraint(lessThanOrEqualToConstant: 155)
         ])
         
-        self.navigationController?.hideBg()
-        bgMenu.addSubview(titleNavBar)
-        
+        view.addSubview(titleNavBar)
         NSLayoutConstraint.activate([
             titleNavBar.topAnchor.constraint(equalTo: view.topAnchor, constant: 53),
             titleNavBar.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 11)
         ])
+        
+//        view.addSubview(searchBar)
+//        NSLayoutConstraint.activate([
+//            searchBar.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
+//            searchBar.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 125)
+//        ])
         
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
@@ -118,9 +125,6 @@ class TopicsViewController: UIViewController {
         let rightNavBarButton = UIBarButtonItem(customView: searchBar)
         self.navigationItem.rightBarButtonItem = rightNavBarButton
 
-//        let rightBarButtonItem: UIBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(plusButtonTapped))
-//        let rightReloadButtonItem: UIBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "arrow.2.circlepath"), style: .plain, target: self, action: #selector(reloadButtonTapped))
-//        navigationItem.rightBarButtonItems = [rightBarButtonItem, rightReloadButtonItem]
     }
     
     
