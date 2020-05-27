@@ -45,12 +45,6 @@ class AppCoordinator: Coordinator {
                                                   addTopicDataManager: dataManager)
         addChildCoordinator(topicsCoordinator)
         topicsCoordinator.start()
-
-        let categoriesNavigationController = UINavigationController()
-        let categoriesCoordinator = CategoriesCoordinator(presenter: categoriesNavigationController,
-                                                          categoriesDataManager: dataManager)
-        addChildCoordinator(categoriesCoordinator)
-        categoriesCoordinator.start()
         
         let usersNavigationController = UINavigationController()
         let usersCoordinator = UsersCoordinator(presenter: usersNavigationController,
@@ -65,10 +59,9 @@ class AppCoordinator: Coordinator {
         UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.tabbarText],
                                                       for: .normal)
 
-        tabBarController.viewControllers = [topicsNavigationController, categoriesNavigationController, usersNavigationController]
+        tabBarController.viewControllers = [topicsNavigationController, usersNavigationController]
         tabBarController.tabBar.items?.first?.image = UIImage(named: "homeSelected")
-        tabBarController.tabBar.items?[1].image = UIImage(systemName: "tag")
-        tabBarController.tabBar.items?[2].image = UIImage(named: "userUnselectedDark")
+        tabBarController.tabBar.items?[1].image = UIImage(named: "userUnselectedDark")
 
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()

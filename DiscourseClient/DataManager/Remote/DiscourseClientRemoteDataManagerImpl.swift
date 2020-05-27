@@ -45,13 +45,6 @@ class DiscourseClientRemoteDataManagerImpl: DiscourseClientRemoteDataManager {
         }
     }
     
-    func fetchAllCategories(completion: @escaping (Result<CategoriesResponse, Error>) -> ()) {
-        let request = CategoriesRequest()
-        session.send(request: request) { result in
-            completion(result)
-        }
-    }
-    
     func fetchAllUsers(completion: @escaping (Result<UsersResponse, Error>) -> ()) {
         let request = UsersRequest(period: "all", order: "likes_received")
         session.send(request: request) { result in
