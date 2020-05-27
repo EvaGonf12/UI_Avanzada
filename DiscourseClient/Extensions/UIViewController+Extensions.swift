@@ -8,18 +8,6 @@
 
 import UIKit
 
-// COLORS
-let colorError = UIColor(named: "ColorError")
-let colorSuccess = UIColor(named: "ColorSuccess")
-let colorPrimary = UIColor(named: "ColorPurpleLight")
-let colorButtons = UIColor(named: "ColorPurpleButtons")
-let colorPurple = UIColor(named: "ColorPurple")
-let colorBgLight = UIColor(named: "ColorBgWhite")
-let colorPurpleText = UIColor(named: "ColorPurpleText")
-let colorGrayText = UIColor(named: "ColorGrayText")
-let colorPink = UIColor(named: "ColorPink")
-let colorPurpleDark = UIColor(named: "ColorPurpleDark")
-
 extension UIViewController {
     /// Muestra un alertcontroller con una única acción
     /// - Parameters:
@@ -36,7 +24,7 @@ extension UIViewController {
         let actionTitle = alertActionTitle ?? "OK"
         
         let alertController = UIAlertController(title: title, message: alertMessage, preferredStyle: .alert)
-        alertController.view.tintColor = colorPrimary
+        alertController.view.tintColor = UIColor.colorPrimary
         alertController.addAction(UIAlertAction(title: actionTitle, style: .default, handler: { (_) in
             guard let alertAction = alertAction else {return}
             alertAction()
@@ -60,7 +48,7 @@ extension UIViewController {
         let aTitleText = aTitle ?? "OK"
         
         let alertController = UIAlertController(title: title, message: alertMessage, preferredStyle: .alert)
-        alertController.view.tintColor = colorPrimary
+        alertController.view.tintColor = UIColor.colorPrimary
         alertController.addAction(UIAlertAction(title: aTitleText, style: aStyle, handler: { (_) in
             guard let aAction = action else {return}
             aAction()

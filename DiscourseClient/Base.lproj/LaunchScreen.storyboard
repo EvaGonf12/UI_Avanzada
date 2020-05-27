@@ -40,7 +40,7 @@
     <resources>
         <image name="Logo" width="128" height="128"/>
         <namedColor name="ColorPurpleButtons">
-            <color red="0.5490196078431373" green="0.54117647058823526" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.54900002479553223" green="0.54100000858306885" blue="0.69800001382827759" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

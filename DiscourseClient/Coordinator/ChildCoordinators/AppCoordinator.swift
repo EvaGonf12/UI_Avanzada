@@ -37,7 +37,7 @@ class AppCoordinator: Coordinator {
         let tabBarController = UITabBarController()
 
         let topicsNavigationController = UINavigationController()
-        topicsNavigationController.navigationBar.barTintColor = colorBgLight
+        topicsNavigationController.navigationBar.barTintColor = UIColor.colorBgLight
 
         let topicsCoordinator = TopicsCoordinator(presenter: topicsNavigationController,
                                                   topicsDataManager: dataManager,
@@ -59,14 +59,16 @@ class AppCoordinator: Coordinator {
         addChildCoordinator(usersCoordinator)
         usersCoordinator.start()
 
-        tabBarController.tabBar.barTintColor = colorBgLight
-        tabBarController.tabBar.tintColor = colorPurpleDark
-        tabBarController.tabBar.unselectedItemTintColor = colorButtons
+        tabBarController.tabBar.barTintColor = UIColor.breakWhite
+        tabBarController.tabBar.tintColor = UIColor.orange
+        tabBarController.tabBar.unselectedItemTintColor = UIColor.dark
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.tabbarText],
+                                                      for: .normal)
 
         tabBarController.viewControllers = [topicsNavigationController, categoriesNavigationController, usersNavigationController]
-        tabBarController.tabBar.items?.first?.image = UIImage(systemName: "list.dash")
+        tabBarController.tabBar.items?.first?.image = UIImage(named: "homeSelected")
         tabBarController.tabBar.items?[1].image = UIImage(systemName: "tag")
-        tabBarController.tabBar.items?[2].image = UIImage(systemName: "person.2")
+        tabBarController.tabBar.items?[2].image = UIImage(named: "userUnselectedDark")
 
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()

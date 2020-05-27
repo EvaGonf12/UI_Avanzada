@@ -21,14 +21,14 @@ class UserDetailViewController: UIViewController {
     
     lazy var labelUserID: UILabel = {
         let label = UILabel()
-        label.textColor = colorPurpleText
+        label.textColor = UIColor.colorPurpleText
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     lazy var labelUserUsername: UILabel = {
         let label = UILabel()
-        label.textColor = colorPurpleText
+        label.textColor = UIColor.colorPurpleText
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -39,13 +39,13 @@ class UserDetailViewController: UIViewController {
         textField.borderStyle = .none
         textField.layer.cornerRadius = 16
         textField.borderStyle = UITextField.BorderStyle.none
-        textField.textColor = colorPurpleText
+        textField.textColor = UIColor.colorPurpleText
         return textField
     }()
     
     lazy var buttonChangeName: UIButton = {
         let button = UIButton()
-        button.backgroundColor = colorPrimary
+        button.backgroundColor = UIColor.colorPrimary
         button.setTitle("Change", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 25
@@ -66,7 +66,7 @@ class UserDetailViewController: UIViewController {
         let labelUserIDTitle = UILabel()
         labelUserIDTitle.translatesAutoresizingMaskIntoConstraints = false
         labelUserIDTitle.text = NSLocalizedString("User ID: ", comment: "")
-        labelUserIDTitle.textColor = colorPrimary
+        labelUserIDTitle.textColor = UIColor.colorPrimary
 
         let userIDStackView = UIStackView(arrangedSubviews: [labelUserIDTitle, self.labelUserID])
         userIDStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -80,7 +80,7 @@ class UserDetailViewController: UIViewController {
         let labelUserUsernameTitle = UILabel()
         labelUserUsernameTitle.text = NSLocalizedString("Username: ", comment: "")
         labelUserUsernameTitle.translatesAutoresizingMaskIntoConstraints = false
-        labelUserUsernameTitle.textColor = colorPrimary
+        labelUserUsernameTitle.textColor = UIColor.colorPrimary
 
         let userUsernameStackView = UIStackView(arrangedSubviews: [labelUserUsernameTitle, self.labelUserUsername])
         userUsernameStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -94,7 +94,7 @@ class UserDetailViewController: UIViewController {
         let labelUserNameTitle = UILabel()
         labelUserNameTitle.translatesAutoresizingMaskIntoConstraints = false
         labelUserNameTitle.text = NSLocalizedString("Name: ", comment: "")
-        labelUserNameTitle.textColor = colorPrimary
+        labelUserNameTitle.textColor = UIColor.colorPrimary
 
         let userNameStackView = UIStackView(arrangedSubviews: [labelUserNameTitle, self.textFieldUserName])
         userNameStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -201,7 +201,7 @@ class UserDetailViewController: UIViewController {
         self.textFieldUserName.text = viewModel.labelUserNameText
         guard let nameCanChange = viewModel.userCanEditName else {return}
         self.buttonChangeName.isEnabled = nameCanChange
-        self.buttonChangeName.backgroundColor = nameCanChange ? colorPrimary : colorGrayText
+        self.buttonChangeName.backgroundColor = nameCanChange ? UIColor.colorPrimary : UIColor.colorGrayText
         self.textFieldUserName.isEnabled = nameCanChange
         self.textFieldUserName.borderStyle = nameCanChange ? .line : .none
         self.textFieldUserName.borderStyle = nameCanChange ? UITextField.BorderStyle.roundedRect : UITextField.BorderStyle.none

@@ -44,8 +44,8 @@ class UsersViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
         
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: colorPurpleText!]
-        self.navigationController?.navigationBar.tintColor = colorPurple
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.colorPurpleText]
+        self.navigationController?.navigationBar.tintColor = UIColor.colorPurple
         
         let logoImage = UIImage.init(named: "Logo")
         let logoImageView = UIImageView.init(image: logoImage)

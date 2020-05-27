@@ -13,28 +13,28 @@ class TopicDetailViewController: UIViewController {
 
     lazy var labelTopicID: UILabel = {
         let label = UILabel()
-        label.textColor = colorPurpleText
+        label.textColor = UIColor.colorPurpleText
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
     lazy var labelTopicTitle: UILabel = {
         let label = UILabel()
-        label.textColor = colorPurpleText
+        label.textColor = UIColor.colorPurpleText
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     lazy var labelTopicPostsCount: UILabel = {
         let label = UILabel()
-        label.textColor = colorPurpleText
+        label.textColor = UIColor.colorPurpleText
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     lazy var buttonDeleteTopic: UIButton = {
         let button = UIButton()
-        button.backgroundColor = colorPink
+        button.backgroundColor = UIColor.colorPink
         button.setTitle("Delete", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.layer.cornerRadius = 25
@@ -47,7 +47,7 @@ class TopicDetailViewController: UIViewController {
         labelTopicIDTitle.translatesAutoresizingMaskIntoConstraints = false
         labelTopicIDTitle.text = NSLocalizedString("Topic ID: ", comment: "")
         labelTopicIDTitle.font = UIFont.boldSystemFont(ofSize: 17.0)
-        labelTopicIDTitle.textColor = colorPrimary
+        labelTopicIDTitle.textColor = UIColor.colorPrimary
 
         let topicIDStackView = UIStackView(arrangedSubviews: [labelTopicIDTitle, self.labelTopicID])
         topicIDStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -62,7 +62,7 @@ class TopicDetailViewController: UIViewController {
         labelTopicTitleTitle.text = NSLocalizedString("Topic name: ", comment: "")
         labelTopicTitleTitle.translatesAutoresizingMaskIntoConstraints = false
         labelTopicTitleTitle.font = UIFont.boldSystemFont(ofSize: 17.0)
-        labelTopicTitleTitle.textColor = colorPrimary
+        labelTopicTitleTitle.textColor = UIColor.colorPrimary
 
         let topicNameStackView = UIStackView(arrangedSubviews: [labelTopicTitleTitle, self.labelTopicTitle])
         topicNameStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -77,7 +77,7 @@ class TopicDetailViewController: UIViewController {
         labelTopicPostsCountTitle.text = NSLocalizedString("Posts count: ", comment: "")
         labelTopicPostsCountTitle.translatesAutoresizingMaskIntoConstraints = false
         labelTopicPostsCountTitle.font = UIFont.boldSystemFont(ofSize: 17.0)
-        labelTopicPostsCountTitle.textColor = colorPrimary
+        labelTopicPostsCountTitle.textColor = UIColor.colorPrimary
 
         let topicPostsCountStackView = UIStackView(arrangedSubviews: [labelTopicPostsCountTitle, self.labelTopicPostsCount])
         topicPostsCountStackView.translatesAutoresizingMaskIntoConstraints = false

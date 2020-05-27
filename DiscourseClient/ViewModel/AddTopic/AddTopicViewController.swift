@@ -13,7 +13,7 @@ class AddTopicViewController: UIViewController {
     
     lazy var labelTopicTitle: UILabel = {
         let label = UILabel()
-        label.textColor = colorPurpleText
+        label.textColor = UIColor.colorPurpleText
         label.text = NSLocalizedString("Title", comment: "")
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -32,10 +32,10 @@ class AddTopicViewController: UIViewController {
         let errorIcon = UIImageView()
         let errorImage = UIImage(systemName: "xmark.circle.fill")
         errorIcon.image = errorImage
-        errorIcon.tintColor = colorError
+        errorIcon.tintColor = UIColor.colorError
         
         let label = UILabel()
-        label.textColor = colorError
+        label.textColor = UIColor.colorError
         label.text = NSLocalizedString("Title length is too short", comment: "")
         label.translatesAutoresizingMaskIntoConstraints = false
         
@@ -65,7 +65,7 @@ class AddTopicViewController: UIViewController {
         let submitButton = UIButton(type: .system)
         submitButton.translatesAutoresizingMaskIntoConstraints = false
         submitButton.setTitle(NSLocalizedString("Submit", comment: ""), for: .normal)
-        submitButton.backgroundColor = colorPrimary
+        submitButton.backgroundColor = UIColor.colorPrimary
         submitButton.setTitleColor(.white, for: .normal)
         submitButton.addTarget(self, action: #selector(submitButtonTapped), for: .touchUpInside)
         submitButton.layer.cornerRadius = 25
@@ -95,13 +95,13 @@ class AddTopicViewController: UIViewController {
 
     override func loadView() {
         view = UIView()
-        view.backgroundColor = colorBgLight
+        view.backgroundColor = UIColor.colorBgLight
 
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
         self.view.addGestureRecognizer(tapGesture)
         
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: colorPurpleText!]
-        self.navigationController?.navigationBar.tintColor = colorPurple
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.colorPurpleText]
+        self.navigationController?.navigationBar.tintColor = UIColor.colorPurple
         
         view.addSubview(topicTitleStackView)
         NSLayoutConstraint.activate([
