@@ -11,33 +11,12 @@ import UIKit
 /// ViewController que representa un listado de topics
 class TopicsViewController: UIViewController {
 
-    var viewModel: TopicsViewModel 
-
-    init(viewModel: TopicsViewModel) {
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    var viewModel: TopicsViewModel
     
-    lazy var titleNavBar: UILabel = {
-        let title = UILabel()
-        title.translatesAutoresizingMaskIntoConstraints = false
-        title.text = "Temas"
-        title.font = UIFont.titleNavbar
-        title.textColor = UIColor.breakWhite
-        return title
-    }()
-
-    lazy var bgMenu: UIImageView = {
-        let image = UIImage(named: "menuBgBig")
-        let imageView = UIImageView(image: image)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.frame = CGRect(x: 0, y: 0, width: 375, height: 305)
-        imageView.contentMode = .scaleToFill
-        return imageView
+    lazy var menu: Menu = {
+        let menu = Menu()
+        menu.translatesAutoresizingMaskIntoConstraints = false
+        return menu
     }()
     
     lazy var searchBar: UISearchBar = {
@@ -72,26 +51,41 @@ class TopicsViewController: UIViewController {
         let notification = NotificationView()
         notification.translatesAutoresizingMaskIntoConstraints = false
         notification.buttonAction = { [weak self] in
-            print("TOMAAAAAA")
+            print("TODO: cambiar la página")
         }
         return notification
     }()
     
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = .orangeLight
+        refreshControl.addTarget(self, action: #selector(refreshControlPulled), for: .valueChanged)
+        return refreshControl
+    }()
+    
+    init(viewModel: TopicsViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func loadView() {
-        title = "Temas"
+        title = self.viewModel.title
         self.navigationItem.title = ""
         self.navigationController?.hideBg()
 
         view = UIView()
         view.backgroundColor = UIColor.breakWhite
         
-        view.addSubview(bgMenu)
+        menu.title = self.viewModel.title
+        view.addSubview(menu)
         NSLayoutConstraint.activate([
-            bgMenu.topAnchor.constraint(equalTo: view.topAnchor),
-            bgMenu.leftAnchor.constraint(equalTo: view.leftAnchor),
-            bgMenu.rightAnchor.constraint(equalTo: view.rightAnchor),
-            bgMenu.heightAnchor.constraint(equalToConstant: 305)
+            menu.topAnchor.constraint(equalTo: view.topAnchor),
+            menu.leftAnchor.constraint(equalTo: view.leftAnchor),
+            menu.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
         
         view.addSubview(notification)
@@ -101,18 +95,6 @@ class TopicsViewController: UIViewController {
             notification.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 11),
             notification.heightAnchor.constraint(lessThanOrEqualToConstant: 155)
         ])
-        
-        view.addSubview(titleNavBar)
-        NSLayoutConstraint.activate([
-            titleNavBar.topAnchor.constraint(equalTo: view.topAnchor, constant: 53),
-            titleNavBar.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 11)
-        ])
-        
-//        view.addSubview(searchBar)
-//        NSLayoutConstraint.activate([
-//            searchBar.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
-//            searchBar.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 125)
-//        ])
         
         view.addSubview(tableView)
         NSLayoutConstraint.activate([
@@ -124,14 +106,13 @@ class TopicsViewController: UIViewController {
         
         let rightNavBarButton = UIBarButtonItem(customView: searchBar)
         self.navigationItem.rightBarButtonItem = rightNavBarButton
+        
+        tableView.refreshControl = refreshControl
 
     }
-    
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.viewWasLoaded()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -139,12 +120,12 @@ class TopicsViewController: UIViewController {
         viewModel.viewWasLoaded()
     }
 
-    @objc func plusButtonTapped() {
-        viewModel.plusButtonTapped()
+    @objc func refreshControlPulled() {
+        self.viewModel.viewWasLoaded()
     }
     
-    @objc func reloadButtonTapped() {
-        viewModel.viewWasLoaded()
+    @objc func plusButtonTapped() {
+        viewModel.plusButtonTapped()
     }
     
     fileprivate func showErrorFetchingTopicsAlert(error : String) {
@@ -181,7 +162,9 @@ extension TopicsViewController: UITableViewDelegate {
 
 extension TopicsViewController: TopicsViewDelegate {
     func topicsFetched() {
-        tableView.reloadData()
+        print("topicsFetched")
+        self.refreshControl.endRefreshing()
+        self.tableView.reloadData()
     }
 
     func errorFetchingTopics(error : String) {

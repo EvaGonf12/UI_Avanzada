@@ -64,9 +64,7 @@ class TopicCell: UITableViewCell {
 
 extension TopicCell: TopicCellViewModelViewDelegate {
     func userImageFetched() {
-        guard let imageData = self.viewModel?.imageData else { return }
-        //TODO: meter animación
-        self.userImageOutlet.image = UIImage(data: imageData)
+        self.userImageOutlet.image = viewModel?.image
         setNeedsLayout()
     }
 }

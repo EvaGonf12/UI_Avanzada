@@ -7,7 +7,7 @@
 //  Copyright © 2020 Roberto Garrido. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 protocol UserCellViewModelViewDelegate: class {
     func userImageFetched()
@@ -19,17 +19,21 @@ class UserCellViewModel {
     weak var viewDelegate: UserCellViewModelViewDelegate?
     
     let user: User
-    var imageData: Data?
+    var image: UIImage?
+    var heightCellCollectionLabel: CGFloat?
     
     init(user: User) {
         self.user = user
-        let userPath = user.user.avatarTemplate.replacingOccurrences(of: "{size}", with: "\(56)")
+        let userPath = user.user.avatarTemplate.replacingOccurrences(of: "{size}", with: "\(78)")
         let urlString = apiURL + userPath
         
         guard let url = URL(string: urlString) else { return }
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            self?.imageData = try? Data.init(contentsOf: url)
+            guard let data = try? Data(contentsOf: url),
+                  let image = UIImage(data: data) else { return }
+            
             DispatchQueue.main.async {
+                self?.image = image
                 self?.viewDelegate?.userImageFetched()
             }
         }

@@ -22,6 +22,7 @@ protocol TopicsViewDelegate: class {
 
 /// ViewModel que representa un listado de topics
 class TopicsViewModel {
+    let title = "Temas" 
     weak var coordinatorDelegate: TopicsCoordinatorDelegate?
     weak var viewDelegate: TopicsViewDelegate?
     var topicsDataManager: TopicsDataManager

@@ -63,7 +63,7 @@
     </objects>
     <resources>
         <namedColor name="ColorPurpleText">
-            <color red="0.40784313725490196" green="0.41568627450980394" blue="0.5725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.40799999237060547" green="0.41600000858306885" blue="0.57300001382827759" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

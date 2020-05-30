@@ -22,6 +22,8 @@ protocol UsersViewDelegate: class {
 
 /// ViewModel que representa un listado de users
 class UsersViewModel {
+    let title = "Usuarios"
+
     weak var coordinatorDelegate: UsersCoordinatorDelegate?
     weak var viewDelegate: UsersViewDelegate?
     var usersDataManager: UsersDataManager
@@ -32,30 +34,7 @@ class UsersViewModel {
     }
 
     func viewWasLoaded() {
-        /** TODO:
-         Recuperar el listado de latest users del dataManager
-         Asignar el resultado a la lista de viewModels (que representan celdas de la interfaz
-         Avisar a la vista de que ya tenemos users listos para pintar
-         */
         self.getUsers()
-    }
-
-    func numberOfSections() -> Int {
-        return 1
-    }
-
-    func numberOfRows(in section: Int) -> Int {
-        return userViewModels.count
-    }
-
-    func viewModel(at indexPath: IndexPath) -> UserCellViewModel? {
-        guard indexPath.row < userViewModels.count else { return nil }
-        return userViewModels[indexPath.row]
-    }
-
-    func didSelectRow(at indexPath: IndexPath) {
-        guard indexPath.row < userViewModels.count else { return }
-        coordinatorDelegate?.didSelect(user: userViewModels[indexPath.row].user)
     }
     
     func getUsers() {
@@ -74,4 +53,33 @@ class UsersViewModel {
         }
     }
     
+    func viewModel(at indexPath: IndexPath) -> UserCellViewModel {
+        return userViewModels[indexPath.row]
+    }
+
+    // TABLE
+    func numberOfSections() -> Int {
+        return 1
+    }
+
+    func numberOfRows(in section: Int) -> Int {
+        return userViewModels.count
+    }
+
+    func viewModel(at indexPath: IndexPath) -> UserCellViewModel? {
+        guard indexPath.row < userViewModels.count else { return nil }
+        return userViewModels[indexPath.row]
+    }
+
+    func didSelectRow(at indexPath: IndexPath) {
+        guard indexPath.row < userViewModels.count else { return }
+        coordinatorDelegate?.didSelect(user: userViewModels[indexPath.row].user)
+    }
+    
+
+    // COLLECTION
+    func numberOfItems(in section: Int) -> Int {
+        return userViewModels.count
+    }
+
 }
