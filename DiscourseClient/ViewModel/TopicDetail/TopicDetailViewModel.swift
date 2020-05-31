@@ -21,6 +21,7 @@ protocol TopicDetailViewDelegate: class {
 }
 
 class TopicDetailViewModel {
+    var title: String
     var labelTopicIDText: String?
     var labelTopicNameText: String?
     var labelTopicPostsCount: Int?
@@ -32,6 +33,7 @@ class TopicDetailViewModel {
     let topicID: Int
     
     init(topicID: Int, topicDetailDataManager: TopicDetailDataManager) {
+        self.title = "Detalle"
         self.topicID = topicID
         self.topicDetailDataManager = topicDetailDataManager
     }

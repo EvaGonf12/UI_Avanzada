@@ -10,24 +10,31 @@ import UIKit
 
 /// ViewController que representa el detalle de un Topic
 class TopicDetailViewController: UIViewController {
+    
+    lazy var menu: Menu = {
+        let menu = Menu()
+        menu.menuType = .small
+        menu.translatesAutoresizingMaskIntoConstraints = false
+        return menu
+    }()
 
     lazy var labelTopicID: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.colorPurpleText
+        label.textColor = UIColor.grayText
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
     lazy var labelTopicTitle: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.colorPurpleText
+        label.textColor = UIColor.grayText
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     lazy var labelTopicPostsCount: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.colorPurpleText
+        label.textColor = UIColor.grayText
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -45,9 +52,9 @@ class TopicDetailViewController: UIViewController {
     lazy var topicIDStackView: UIStackView = {
         let labelTopicIDTitle = UILabel()
         labelTopicIDTitle.translatesAutoresizingMaskIntoConstraints = false
-        labelTopicIDTitle.text = NSLocalizedString("Topic ID: ", comment: "")
+        labelTopicIDTitle.text = NSLocalizedString("Tema ID: ", comment: "")
         labelTopicIDTitle.font = UIFont.boldSystemFont(ofSize: 17.0)
-        labelTopicIDTitle.textColor = UIColor.colorPrimary
+        labelTopicIDTitle.textColor = UIColor.dark
 
         let topicIDStackView = UIStackView(arrangedSubviews: [labelTopicIDTitle, self.labelTopicID])
         topicIDStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -59,10 +66,10 @@ class TopicDetailViewController: UIViewController {
 
     lazy var topicNameStackView: UIStackView = {
         let labelTopicTitleTitle = UILabel()
-        labelTopicTitleTitle.text = NSLocalizedString("Topic name: ", comment: "")
+        labelTopicTitleTitle.text = NSLocalizedString("Nombre: ", comment: "")
         labelTopicTitleTitle.translatesAutoresizingMaskIntoConstraints = false
         labelTopicTitleTitle.font = UIFont.boldSystemFont(ofSize: 17.0)
-        labelTopicTitleTitle.textColor = UIColor.colorPrimary
+        labelTopicTitleTitle.textColor = UIColor.dark
 
         let topicNameStackView = UIStackView(arrangedSubviews: [labelTopicTitleTitle, self.labelTopicTitle])
         topicNameStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -74,10 +81,10 @@ class TopicDetailViewController: UIViewController {
     
     lazy var topicPostsCountStackView: UIStackView = {
         let labelTopicPostsCountTitle = UILabel()
-        labelTopicPostsCountTitle.text = NSLocalizedString("Posts count: ", comment: "")
+        labelTopicPostsCountTitle.text = NSLocalizedString("Número posts: ", comment: "")
         labelTopicPostsCountTitle.translatesAutoresizingMaskIntoConstraints = false
         labelTopicPostsCountTitle.font = UIFont.boldSystemFont(ofSize: 17.0)
-        labelTopicPostsCountTitle.textColor = UIColor.colorPrimary
+        labelTopicPostsCountTitle.textColor = UIColor.dark
 
         let topicPostsCountStackView = UIStackView(arrangedSubviews: [labelTopicPostsCountTitle, self.labelTopicPostsCount])
         topicPostsCountStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -109,14 +116,31 @@ class TopicDetailViewController: UIViewController {
     }
 
     override func loadView() {
+        title = self.viewModel.title
+        self.navigationController?.hideBg()
+        
+
+        let textAttributes = [NSAttributedString.Key.foregroundColor: UIColor.breakWhite,
+                              NSAttributedString.Key.font: UIFont.titleNavbar]
+        
+        self.navigationController?.navigationBar.tintColor = UIColor.breakWhite
+        self.navigationController?.navigationBar.titleTextAttributes = textAttributes
+        
         view = UIView()
         view.backgroundColor = .white
+        
+        view.addSubview(menu)
+        NSLayoutConstraint.activate([
+            menu.topAnchor.constraint(equalTo: view.topAnchor),
+            menu.leftAnchor.constraint(equalTo: view.leftAnchor),
+            menu.rightAnchor.constraint(equalTo: view.rightAnchor)
+        ])
 
         view.addSubview(topicIDStackView)
         NSLayoutConstraint.activate([
             topicIDStackView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
             topicIDStackView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 20),
-            topicIDStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20)
+            topicIDStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30)
         ])
 
         view.addSubview(topicNameStackView)

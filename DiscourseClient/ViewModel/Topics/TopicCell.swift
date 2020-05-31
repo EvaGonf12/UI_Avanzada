@@ -65,6 +65,10 @@ class TopicCell: UITableViewCell {
 extension TopicCell: TopicCellViewModelViewDelegate {
     func userImageFetched() {
         self.userImageOutlet.image = viewModel?.image
+        self.userImageOutlet.alpha = 0
+        UIView.animate(withDuration: 1.0) {
+            self.userImageOutlet.alpha = 1
+        }
         setNeedsLayout()
     }
 }

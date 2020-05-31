@@ -35,9 +35,23 @@ class AppCoordinator: Coordinator {
 
     override func start() {
         let tabBarController = UITabBarController()
+        
+        let tabBar = UITabBar.appearance()
+        //tabBar.barTintColor = UIColor.clear
+        tabBar.backgroundImage = UIImage()
+        tabBar.shadowImage = UIImage()
 
+        let tabBarShape = CustomizedTabbar.createCustomTabbar()
+        tabBarController.tabBar.addSubview(tabBarShape)
+        
+        NSLayoutConstraint.activate([
+            tabBarShape.leftAnchor.constraint(equalTo: tabBarController.tabBar.leftAnchor),
+            tabBarShape.rightAnchor.constraint(equalTo: tabBarController.tabBar.rightAnchor),
+            tabBarShape.bottomAnchor.constraint(equalTo: tabBarController.tabBar.bottomAnchor)
+        ])
+        
         let topicsNavigationController = UINavigationController()
-        topicsNavigationController.navigationBar.barTintColor = UIColor.colorBgLight
+        //topicsNavigationController.navigationBar.barTintColor = UIColor.colorBgLight
 
         let topicsCoordinator = TopicsCoordinator(presenter: topicsNavigationController,
                                                   topicsDataManager: dataManager,
@@ -53,16 +67,17 @@ class AppCoordinator: Coordinator {
         addChildCoordinator(usersCoordinator)
         usersCoordinator.start()
 
-        tabBarController.tabBar.barTintColor = UIColor.breakWhite
+        //tabBarController.tabBar.barTintColor = UIColor.breakWhite
         tabBarController.tabBar.tintColor = UIColor.orange
         tabBarController.tabBar.unselectedItemTintColor = UIColor.dark
-        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.tabbarText],
-                                                      for: .normal)
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.tabbarText], for: .normal)
 
         tabBarController.viewControllers = [topicsNavigationController, usersNavigationController]
         tabBarController.tabBar.items?.first?.image = UIImage(named: "homeSelected")
         tabBarController.tabBar.items?[1].image = UIImage(named: "userUnselectedDark")
 
+        
+        
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()
     }

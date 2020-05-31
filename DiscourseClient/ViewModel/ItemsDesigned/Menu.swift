@@ -12,12 +12,17 @@ enum MenuBGName: String {
     case big = "menuBgBig"
     case small = "menuBg"
 }
-
+/*
+ El menú tendría que estar hecho con un CALayer y adaptar su alto en función de su contenido
+ */
 class Menu: UIView {
     
     var menuType: MenuBGName = .big {
         didSet {
-            bgMenu.image = UIImage(named: menuType.rawValue)
+            let image = UIImage(named: menuType.rawValue)
+            bgMenu.image = image
+            bgMenu.frame = CGRect(x: 0, y: 0, width: bgMenu.image?.size.width ?? 0.0, height: bgMenu.image?.size.height ?? 0.0)
+            bgMenu.layoutIfNeeded()
         }
     }
     
@@ -31,7 +36,7 @@ class Menu: UIView {
         let image = UIImage(named: menuType.rawValue)
         let imageView = UIImageView(image: image)
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.frame = CGRect(x: 0, y: 0, width: 375, height: 305)
+        imageView.frame = CGRect(x: 0, y: 0, width: image?.size.width ?? 0.0, height: image?.size.height ?? 0.0)
         imageView.contentMode = .scaleToFill
         return imageView
     }()
@@ -60,8 +65,7 @@ class Menu: UIView {
         NSLayoutConstraint.activate([
             bgMenu.topAnchor.constraint(equalTo: self.topAnchor),
             bgMenu.leftAnchor.constraint(equalTo: self.leftAnchor),
-            bgMenu.rightAnchor.constraint(equalTo: self.rightAnchor),
-            bgMenu.heightAnchor.constraint(equalToConstant: height)
+            bgMenu.rightAnchor.constraint(equalTo: self.rightAnchor)
         ])
         
         self.addSubview(titleNavBar)
@@ -70,4 +74,5 @@ class Menu: UIView {
             titleNavBar.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 11)
         ])
     }
+    
 }

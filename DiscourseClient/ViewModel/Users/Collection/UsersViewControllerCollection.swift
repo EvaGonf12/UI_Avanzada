@@ -64,6 +64,16 @@ class UsersViewControllerCollection: UIViewController {
         collectionView.register(UINib(nibName: "UserCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "UserCollectionViewCell")
         return collectionView
     }()
+    
+    lazy var addButton: UIButton = {
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 54, height: 53))
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(named: "buttonAdd"), for: .normal)
+        //button.addTarget(self, action: #selector(self.addTopic), for: .touchUpInside)
+        return button
+    }()
+    
+    var topConstrain: NSLayoutConstraint?
         
     let viewModel: UsersViewModel
     
@@ -84,6 +94,8 @@ class UsersViewControllerCollection: UIViewController {
         view = UIView()
         view.backgroundColor = .white
 
+        topConstrain = NSLayoutConstraint(item: collectionView, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1, constant: 289)
+        
         menu.title = self.viewModel.title
         view.addSubview(menu)
         NSLayoutConstraint.activate([
@@ -101,12 +113,30 @@ class UsersViewControllerCollection: UIViewController {
         ])
         
         view.addSubview(collectionView)
+        guard let topConstrainCollection = self.topConstrain else { return }
+
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 289),
+            topConstrainCollection,
             collectionView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
             collectionView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
             collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+        
+        view.addSubview(addButton)
+        NSLayoutConstraint.activate([
+            addButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            addButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -56),
+            addButton.heightAnchor.constraint(equalToConstant: 53),
+            addButton.widthAnchor.constraint(equalToConstant: 54)
+        ])
+        
+        notification.buttonAction = { [weak self] in
+            // Tiene que ocultar toda la notificación y hacer el menú pequeño
+            self?.notification.isHidden = true
+            self?.menu.menuType = MenuBGName.small
+            self?.topConstrain?.constant = 114
+            self?.collectionView.layoutIfNeeded()
+        }
         
         let rightNavBarButton = UIBarButtonItem(customView: searchBar)
         self.navigationItem.rightBarButtonItem = rightNavBarButton

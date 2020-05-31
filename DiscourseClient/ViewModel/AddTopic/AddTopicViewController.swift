@@ -11,10 +11,17 @@ import UIKit
 /// ViewController representando un formulario de entrada para crear un topic
 class AddTopicViewController: UIViewController {
     
+    lazy var menu: Menu = {
+        let menu = Menu()
+        menu.menuType = .small
+        menu.translatesAutoresizingMaskIntoConstraints = false
+        return menu
+    }()
+    
     lazy var labelTopicTitle: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.colorPurpleText
-        label.text = NSLocalizedString("Title", comment: "")
+        label.textColor = UIColor.grayText
+        label.text = NSLocalizedString("Título", comment: "")
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -22,7 +29,7 @@ class AddTopicViewController: UIViewController {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.borderStyle = .line
-        textField.placeholder = NSLocalizedString("Insert topic title", comment: "")
+        textField.placeholder = NSLocalizedString("Añade un título al tema", comment: "")
         textField.layer.cornerRadius = 16
         textField.borderStyle = UITextField.BorderStyle.roundedRect
         return textField
@@ -36,7 +43,7 @@ class AddTopicViewController: UIViewController {
         
         let label = UILabel()
         label.textColor = UIColor.colorError
-        label.text = NSLocalizedString("Title length is too short", comment: "")
+        label.text = NSLocalizedString("La longitud del título es demasiado corta", comment: "")
         label.translatesAutoresizingMaskIntoConstraints = false
         
         let titleErrorStackView = UIStackView(arrangedSubviews: [errorIcon, label])
@@ -64,9 +71,9 @@ class AddTopicViewController: UIViewController {
     lazy var buttonAddTopic: UIButton = {
         let submitButton = UIButton(type: .system)
         submitButton.translatesAutoresizingMaskIntoConstraints = false
-        submitButton.setTitle(NSLocalizedString("Submit", comment: ""), for: .normal)
-        submitButton.backgroundColor = UIColor.colorPrimary
-        submitButton.setTitleColor(.white, for: .normal)
+        submitButton.setTitle(NSLocalizedString("Añadir", comment: ""), for: .normal)
+        submitButton.backgroundColor = UIColor.orangeDark
+        submitButton.setTitleColor(.breakWhite, for: .normal)
         submitButton.addTarget(self, action: #selector(submitButtonTapped), for: .touchUpInside)
         submitButton.layer.cornerRadius = 25
         return submitButton
@@ -94,20 +101,34 @@ class AddTopicViewController: UIViewController {
     }
 
     override func loadView() {
+        title = self.viewModel.title
+        self.navigationController?.hideBg()
+        
+
+        let textAttributes = [NSAttributedString.Key.foregroundColor: UIColor.breakWhite,
+                              NSAttributedString.Key.font: UIFont.titleNavbar]
+        
+        self.navigationController?.navigationBar.tintColor = UIColor.breakWhite
+        self.navigationController?.navigationBar.titleTextAttributes = textAttributes
+        
         view = UIView()
-        view.backgroundColor = UIColor.colorBgLight
+        view.backgroundColor = UIColor.breakWhite
 
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
         self.view.addGestureRecognizer(tapGesture)
-        
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.colorPurpleText]
-        self.navigationController?.navigationBar.tintColor = UIColor.colorPurple
+                
+        view.addSubview(menu)
+        NSLayoutConstraint.activate([
+            menu.topAnchor.constraint(equalTo: view.topAnchor),
+            menu.leftAnchor.constraint(equalTo: view.leftAnchor),
+            menu.rightAnchor.constraint(equalTo: view.rightAnchor)
+        ])
         
         view.addSubview(topicTitleStackView)
         NSLayoutConstraint.activate([
             topicTitleStackView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
             topicTitleStackView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
-            topicTitleStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20)
+            topicTitleStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 60)
         ])
 
         view.addSubview(addTopicStackView)

@@ -24,7 +24,7 @@
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" name="ColorPurpleButtons"/>
+                        <color key="backgroundColor" name="Dark"/>
                         <constraints>
                             <constraint firstItem="ssN-kR-YKh" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="2c5-ez-wwF"/>
                             <constraint firstItem="ssN-kR-YKh" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="Mhl-FJ-jz6"/>
@@ -39,8 +39,8 @@
     </scenes>
     <resources>
         <image name="Logo" width="128" height="128"/>
-        <namedColor name="ColorPurpleButtons">
-            <color red="0.54900002479553223" green="0.54100000858306885" blue="0.69800001382827759" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="Dark">
+            <color red="0.047058823529411764" green="0.047058823529411764" blue="0.047058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

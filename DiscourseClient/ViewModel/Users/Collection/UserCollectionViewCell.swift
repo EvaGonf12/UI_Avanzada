@@ -45,6 +45,10 @@ class UserCollectionViewCell: UICollectionViewCell {
 extension UserCollectionViewCell: UserCellViewModelViewDelegate {
     func userImageFetched() {
         self.imageOutlet.image = viewModel?.image
+        self.imageOutlet.alpha = 0
+        UIView.animate(withDuration: 1.0) {
+            self.imageOutlet.alpha = 1
+        }
         setNeedsLayout()
     }
 }

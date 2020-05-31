@@ -50,7 +50,6 @@ class NotificationView: UIView {
     
     lazy var button: UIButton = {
         let button = UIButton()
-        
         button.backgroundColor = UIColor.orangeDark
         button.frame = CGRect(x: 0, y: 0, width: 115, height: 28)
         button.setTitle("Acceder", for: .normal)
@@ -65,7 +64,6 @@ class NotificationView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
-        addActions()
     }
     
     required init?(coder: NSCoder) {
@@ -75,14 +73,6 @@ class NotificationView: UIView {
     fileprivate func setupView() {
         self.backgroundColor = UIColor.breakWhite
         self.layer.cornerRadius = 24
-        
-//        self.addSubview(contentView)
-//        NSLayoutConstraint.activate([
-//            contentView.topAnchor.constraint(equalTo: self.topAnchor),
-//            contentView.leftAnchor.constraint(equalTo: self.leftAnchor),
-//            contentView.rightAnchor.constraint(equalTo: self.rightAnchor),
-//            contentView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
-//        ])
         
         self.addSubview(iconNotification)
         NSLayoutConstraint.activate([
@@ -99,33 +89,30 @@ class NotificationView: UIView {
             title.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -90)
         ])
         
-        self.addSubview(textNotification)
-        NSLayoutConstraint.activate([
-            textNotification.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 6),
-            textNotification.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 19),
-            textNotification.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -21)
-        ])
-                
         self.addSubview(button)
         NSLayoutConstraint.activate([
-            button.topAnchor.constraint(equalTo: textNotification.bottomAnchor, constant: 20),
             button.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -15),
             button.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             button.heightAnchor.constraint(equalToConstant: 28),
             button.widthAnchor.constraint(equalToConstant: 115)
         ])
         
-//        let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.checkAction))
-//        self.addGestureRecognizer(gesture)
+        self.addSubview(textNotification)
+        NSLayoutConstraint.activate([
+            textNotification.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 6),
+            textNotification.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 19),
+            textNotification.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -21),
+            textNotification.bottomAnchor.constraint(equalTo: button.topAnchor, constant: -19),
+        ])
     }
         
-    func addActions() {
-        //button.addTarget(self, action: #selector(self.buttonActionFunc), for: .touchUpInside)
+    @objc func buttonActionFunc() {
+        self.buttonAction?()
     }
     
-    @objc func buttonActionFunc() {
-        //self.buttonAction?()
-        print("TOMAAAAAAAAAAA")
+    func hideNotification() {
+        // Ocultar la notificación y hacer el menú pequeño
+        
     }
     
 }

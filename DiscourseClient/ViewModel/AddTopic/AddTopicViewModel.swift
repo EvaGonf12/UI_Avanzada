@@ -21,11 +21,13 @@ protocol AddTopicViewDelegate: class {
 }
 
 class AddTopicViewModel {
+    var title: String
     weak var viewDelegate: AddTopicViewDelegate?
     weak var coordinatorDelegate: AddTopicCoordinatorDelegate?
     let dataManager: AddTopicDataManager
 
     init(dataManager: AddTopicDataManager) {
+        self.title = "Nuevo Tema"
         self.dataManager = dataManager
     }
 
