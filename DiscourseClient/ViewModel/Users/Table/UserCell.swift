@@ -32,7 +32,7 @@ class UserCell : UITableViewCell {
 
 extension UserCell: UserCellViewModelViewDelegate {
     func userImageFetched() {
-        imageUserOutlet.image = viewModel?.image
+        imageUserOutlet.image = viewModel?.userImage
         setNeedsLayout()
     }
 }

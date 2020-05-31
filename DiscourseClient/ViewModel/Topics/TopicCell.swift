@@ -19,9 +19,6 @@ class TopicCell: UITableViewCell {
     @IBOutlet weak var msgCountOutlet: UILabel!
     @IBOutlet weak var dateOutlet: UILabel!
 
-    override func awakeFromNib() {
-        self.setupUI()
-    }
     
     var viewModel: TopicCellViewModel? {
         didSet {
@@ -47,6 +44,12 @@ class TopicCell: UITableViewCell {
             self.dateOutlet.text = outputStringDate.capitalized
         }
     }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.setupUI()
+    }
+    
     
     fileprivate func setupUI() {
         self.contentView.layer.borderWidth = 0

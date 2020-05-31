@@ -18,8 +18,8 @@ class UserCollectionViewCell: UICollectionViewCell {
         didSet {
             guard let viewModel = viewModel else { return }
             viewModel.viewDelegate = self
-            
             nameTextOutlet?.text = viewModel.user.user.name
+            imageOutlet.image = viewModel.userImage
         }
     }
     
@@ -30,7 +30,8 @@ class UserCollectionViewCell: UICollectionViewCell {
     }
     
     fileprivate func setupUI() {
-        self.imageOutlet.layer.cornerRadius = imageOutlet.frame.height / 2
+        self.contentView.layer.borderWidth = 0
+        self.imageOutlet.layer.cornerRadius = self.imageOutlet.frame.height / 2
         
         // Shadow de la imagen de la tabla
         self.contentShadowOutlet.backgroundColor = .clear
@@ -44,7 +45,9 @@ class UserCollectionViewCell: UICollectionViewCell {
 
 extension UserCollectionViewCell: UserCellViewModelViewDelegate {
     func userImageFetched() {
-        self.imageOutlet.image = viewModel?.image
+        guard let image = viewModel?.userImage else { return }
+        self.imageOutlet.image = image
+
         self.imageOutlet.alpha = 0
         UIView.animate(withDuration: 1.0) {
             self.imageOutlet.alpha = 1

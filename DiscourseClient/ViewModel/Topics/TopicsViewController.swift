@@ -191,6 +191,7 @@ extension TopicsViewController: TopicsViewDelegate {
     }
 
     func errorFetchingTopics(error : String) {
+        self.refreshControl.endRefreshing()
         showErrorFetchingTopicsAlert(error: error)
     }
 }

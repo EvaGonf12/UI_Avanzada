@@ -146,6 +146,10 @@ class UsersViewControllerCollection: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
         viewModel.viewWasLoaded()
     }
     
@@ -167,6 +171,7 @@ extension UsersViewControllerCollection: UsersViewDelegate {
     }
     
     func errorFetchingUsers(error : String) {
+        self.refreshControl.endRefreshing()
         showErrorFetchingUsersAlert(error: error)
     }
 }
@@ -177,8 +182,10 @@ extension UsersViewControllerCollection: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UserCollectionViewCell", for: indexPath) as? UserCollectionViewCell else { fatalError() }
-        cell.viewModel = viewModel.viewModel(at: indexPath)
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UserCollectionViewCell", for: indexPath) as? UserCollectionViewCell,
+              let model = viewModel.viewModel(at: indexPath) else { fatalError() }
+        
+        cell.viewModel = model
         return cell
     }
 }
